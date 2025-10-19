@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.env
+*.env
+*.sqlite3
+*.db
+# VSCode
+.vscode/
+# OS
+.DS_Store
+# PDF/exports
+*.pdf
