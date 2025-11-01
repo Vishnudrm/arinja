@@ -1,13 +1,71 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Configuration and Secrets
+# -----------------------
+# Never commit these files
 .env
+config/.env
+config/config.env
 *.env
-*.sqlite3
+!config/config.example.env
+
+# Database
 *.db
-# VSCode
+*.sqlite3
+*.sqlite
+
+# IDEs and editors
+.idea/
 .vscode/
-# OS
+*.swp
+*.swo
+*~
+
+# OS generated files
 .DS_Store
-# PDF/exports
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Exports
 *.pdf
+exports/

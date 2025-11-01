@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "arinja"
 version = "0.1.0"
-description = "Terminal AI-powered news bot"
-authors = ["Your Name <you@example.com>"]
+description = "Terminal-based news aggregator"
+authors = ["Vishnudrm <your@email.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/Vishnudrm/arinja"
 packages = [
     { include = "arinja" }
 ]
@@ -11,17 +14,15 @@ packages = [
 arinja = "arinja.cli:app"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.8,<4.0"
 typer = "^0.9.0"
 rich = "^13.0.0"
 psycopg2-binary = "^2.9.0"
 requests = "^2.31.0"
-feedparser = "^6.0.0"
-openai = "^1.0.0"
-weasyprint = "^61.0"
 python-dotenv = "^1.0.0"
-textual = "^0.50.0"
 pytz = "^2023.3"
+gnews = "^0.3.6"
+beautifulsoup4 = "^4.12.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"

@@ -1,44 +1,34 @@
 import os
+import sys
 import psycopg2
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=os.path.expanduser('~/.config/arinja/.env'))
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config_env = os.path.join(project_root, 'config', 'config.env')
+
+if not os.path.exists(config_env):
+    print(f"Error: config.env not found at {config_env}")
+    print("Please copy config.example.env to config.env and update the values.")
+    sys.exit(1)
+
+load_dotenv(dotenv_path=config_env)
 POSTGRES_URI = os.getenv('POSTGRES_URI')
 
 schema = '''
 CREATE TABLE IF NOT EXISTS articles (
     id SERIAL PRIMARY KEY,
-    title TEXT,
+    title TEXT NOT NULL,
     source TEXT,
     published_at TIMESTAMP,
     content TEXT,
-    language TEXT,
     category TEXT,
     url TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(title, source, published_at)
 );
-CREATE TABLE IF NOT EXISTS bookmarks (
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER REFERENCES articles(id),
-    tags TEXT[],
-    note TEXT,
-    starred BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE IF NOT EXISTS highlights (
-    id SERIAL PRIMARY KEY,
-    article_id INTEGER REFERENCES articles(id),
-    snippet TEXT,
-    color TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
--- We'll add embeddings table later after pgvector is installed
--- CREATE TABLE IF NOT EXISTS embeddings (
---     id SERIAL PRIMARY KEY,
---     article_id INTEGER REFERENCES articles(id),
---     embedding VECTOR(1536),
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
+CREATE INDEX IF NOT EXISTS articles_category_idx ON articles(category);
+CREATE INDEX IF NOT EXISTS articles_published_at_idx ON articles(published_at);
 '''
 
 def main():
